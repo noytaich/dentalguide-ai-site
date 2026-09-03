@@ -1,83 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>DentalGuide AI</title>
 
   <style>
-    body{
-      margin:0;
-      background:linear-gradient(135deg,#eef7ff,#ffffff);
-      font-family:Arial;
-      overflow-x:hidden;
+    * {
+      box-sizing: border-box;
     }
 
-    .page{
-      max-width:1250px;
-      margin:auto;
-      padding:30px;
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #eef7ff, #ffffff);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      color: #1f2937;
     }
 
-    iframe{
-      width:100%;
-      height:1050px;
-      border:none;
-      border-radius:24px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.10);
-      background:white;
-      display:block;
+    .page {
+      max-width: 1250px;
+      margin: auto;
+      padding: 30px;
     }
 
-    .about{
-      max-width:1100px;
-      margin:35px auto 10px auto;
-      background:white;
-      padding:35px;
-      border-radius:24px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.08);
-      color:#1f2937;
-      line-height:1.7;
+    /* ---------- Header ---------- */
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
     }
 
-    .about h2{
-      color:#0d47a1;
-      margin-top:0;
-      margin-bottom:18px;
-      font-size:36px;
+    .header h1 {
+      margin: 0;
+      color: #0d47a1;
+      font-size: 42px;
     }
 
-    .about p{
-      font-size:18px;
-      margin-bottom:18px;
-      color:#374151;
+    .header p {
+      margin-top: 10px;
+      color: #6b7280;
+      font-size: 17px;
     }
 
-    @media (max-width: 768px){
-      .page{
-        padding:10px;
+    /* ---------- AI Container ---------- */
+
+    .ai-container {
+      position: relative;
+      width: 100%;
+      min-height: 1050px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 1050px;
+      border: none;
+      display: block;
+      background: white;
+    }
+
+    /* ---------- Loading Screen ---------- */
+
+    .loader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      z-index: 5;
+      text-align: center;
+      padding: 25px;
+      transition: opacity 0.4s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border: 5px solid #dbeafe;
+      border-top: 5px solid #0d47a1;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader h3 {
+      margin: 0 0 8px;
+      color: #0d47a1;
+      font-size: 22px;
+    }
+
+    .loader p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 15px;
+    }
+
+    /* ---------- Open directly ---------- */
+
+    .direct-open {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .direct-open p {
+      color: #6b7280;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .direct-button {
+      display: inline-block;
+      text-decoration: none;
+      background: #0d47a1;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .direct-button:hover {
+      background: #08377f;
+      transform: translateY(-1px);
+    }
+
+    /* ---------- About ---------- */
+
+    .about {
+      max-width: 1100px;
+      margin: 35px auto 10px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      line-height: 1.7;
+    }
+
+    .about h2 {
+      color: #0d47a1;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 36px;
+    }
+
+    .about p {
+      font-size: 18px;
+      margin-bottom: 18px;
+      color: #374151;
+    }
+
+    .disclaimer {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #64748b;
+      font-size: 14px;
+      border-left: 4px solid #0d47a1;
+    }
+
+    /* ---------- Mobile ---------- */
+
+    @media (max-width: 768px) {
+
+      .page {
+        padding: 10px;
       }
 
-      iframe{
-        height:1250px;
-        border-radius:16px;
-        box-shadow:none;
+      .header {
+        padding: 15px 10px;
       }
 
-      .about{
-        padding:22px;
-        margin:20px auto 10px auto;
-        border-radius:18px;
+      .header h1 {
+        font-size: 30px;
       }
 
-      .about h2{
-        font-size:26px;
+      .header p {
+        font-size: 15px;
       }
 
-      .about p{
-        font-size:15px;
+      .ai-container {
+        min-height: 1250px;
+        border-radius: 16px;
+        box-shadow: none;
+      }
+
+      iframe {
+        height: 1250px;
+      }
+
+      .about {
+        padding: 22px;
+        margin: 20px auto 10px auto;
+        border-radius: 18px;
+      }
+
+      .about h2 {
+        font-size: 26px;
+      }
+
+      .about p {
+        font-size: 15px;
+      }
+
+      .direct-button {
+        width: 100%;
+        max-width: 350px;
       }
     }
+
   </style>
 </head>
 
@@ -85,23 +235,104 @@
 
   <div class="page">
 
-    <iframe
-      src="https://noy122122333-dentalguide-ai.hf.space">
-    </iframe>
+    <header class="header">
+      <h1>DentalGuide AI</h1>
+      <p>AI-powered guidance for common dental symptoms</p>
+    </header>
+
+    <div class="ai-container">
+
+      <div class="loader" id="loader">
+
+        <div class="spinner"></div>
+
+        <h3>Loading DentalGuide AI</h3>
+
+        <p>
+          The AI system may take a few moments to start.
+        </p>
+
+      </div>
+
+      <iframe
+        id="dentalFrame"
+        src="https://noy122122333-dentalguide-ai.hf.space"
+        title="DentalGuide AI"
+        allow="clipboard-read; clipboard-write"
+        loading="eager">
+      </iframe>
+
+    </div>
+
+    <div class="direct-open">
+
+      <p>
+        Having trouble loading the system?
+      </p>
+
+      <a
+        class="direct-button"
+        href="https://noy122122333-dentalguide-ai.hf.space"
+        target="_blank"
+        rel="noopener noreferrer">
+        Open DentalGuide AI directly
+      </a>
+
+    </div>
 
     <section class="about">
+
       <h2>What is DentalGuide AI?</h2>
 
       <p>
-        DentalGuide AI is an educational tool designed to help patients better understand common symptoms after dental treatments such as tooth extractions, root canals, fillings, aligners, and cleanings.
+        DentalGuide AI is an educational tool designed to help patients
+        better understand common symptoms after dental treatments such as
+        tooth extractions, root canals, fillings, aligners, and cleanings.
       </p>
 
       <p>
-        The system provides general guidance based on symptom type, severity, and time since treatment, helping users understand when symptoms may be normal and when professional dental evaluation may be needed.
+        The system provides general guidance based on symptom type,
+        severity, and time since treatment, helping users understand when
+        symptoms may be normal and when professional dental evaluation
+        may be needed.
       </p>
+
+      <div class="disclaimer">
+        DentalGuide AI provides general educational information only and
+        does not replace professional dental diagnosis, treatment, or
+        emergency medical care.
+      </div>
+
     </section>
 
   </div>
 
+  <script>
+
+    const iframe = document.getElementById("dentalFrame");
+    const loader = document.getElementById("loader");
+
+    iframe.addEventListener("load", function () {
+
+      setTimeout(function () {
+        loader.classList.add("hidden");
+      }, 700);
+
+    });
+
+    /*
+      Fallback:
+      Even if Hugging Face takes a long time to fully initialize,
+      remove the loading screen after 15 seconds so the user can
+      interact with the page.
+    */
+
+    setTimeout(function () {
+      loader.classList.add("hidden");
+    }, 15000);
+
+  </script>
+
 </body>
+
 </html>
